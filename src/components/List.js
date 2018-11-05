@@ -18,7 +18,7 @@ function ListComponent(props) {
         />
       </form>
       <button
-        class="remove-button"
+        className="remove-button"
         onClick={() => props.deleteToDo(props.index)}
       >
         DEL
@@ -46,6 +46,7 @@ class List extends React.Component {
     this.addItem = this.addItem.bind(this);
     this.changeTitle = this.changeTitle.bind(this);
     this.toggleIsDone = this.toggleIsDone.bind(this);
+    this.deleteToDo = this.deleteToDo.bind(this);
   }
 
   changeTitle(index, newTitle) {
@@ -88,7 +89,10 @@ class List extends React.Component {
   }
 
   deleteToDo(index) {
-    let updatedList = [...this.state.listOfItems.splice(index, 1)];
+    let copyOfList = [...this.state.listOfItems];
+    let updatedList = copyOfList.splice(index, 1);
+    console.log(index);
+    console.log(updatedList);
     this.setState({
       listOfItems: updatedList
     });
