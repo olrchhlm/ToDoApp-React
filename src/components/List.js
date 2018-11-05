@@ -56,6 +56,7 @@ class List extends React.Component {
     this.setState({
       listOfItems: prevListOfItems
     });
+    this.sortListOfItems();
   }
 
   addItem() {
@@ -69,6 +70,15 @@ class List extends React.Component {
       "toDoListItems",
       JSON.stringify(this.state.listOfItems)
     );
+  }
+
+  sortListOfItems() {
+    let sortedList = this.state.listOfItems.sort(item => {
+      return item.isDone ? 1 : -1;
+    });
+    this.setState({
+      listOfItems: [...sortedList]
+    });
   }
 
   render() {
@@ -92,9 +102,5 @@ class List extends React.Component {
     );
   }
 }
-
-// for(var i = 0; i < this.state.listOfItems.length; i++) {
-//   <ListComponent name="i" />
-// }
 
 export default List;
