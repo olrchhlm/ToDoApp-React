@@ -17,6 +17,12 @@ function ListComponent(props) {
           onChange={event => props.changeTitle(props.index, event.target.value)}
         />
       </form>
+      <button
+        className="remove-button"
+        onClick={() => props.deleteToDo(props.index)}
+      >
+        DEL
+      </button>
     </div>
   );
 }
@@ -40,6 +46,7 @@ class List extends React.Component {
     this.addItem = this.addItem.bind(this);
     this.changeTitle = this.changeTitle.bind(this);
     this.toggleIsDone = this.toggleIsDone.bind(this);
+    this.deleteToDo = this.deleteToDo.bind(this);
   }
 
   changeTitle(index, newTitle) {
@@ -81,6 +88,14 @@ class List extends React.Component {
     });
   }
 
+  deleteToDo(index) {
+    let copyOfList = [...this.state.listOfItems];
+    copyOfList.splice(index, 1);
+    this.setState({
+      listOfItems: copyOfList
+    });
+  }
+
   render() {
     return (
       <div>
@@ -92,6 +107,7 @@ class List extends React.Component {
             index={i}
             onClick={() => this.toggleIsDone(i)}
             changeTitle={this.changeTitle}
+            deleteToDo={this.deleteToDo}
           />
         ))}
 
