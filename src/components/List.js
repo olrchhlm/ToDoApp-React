@@ -90,11 +90,9 @@ class List extends React.Component {
 
   deleteToDo(index) {
     let copyOfList = [...this.state.listOfItems];
-    let updatedList = copyOfList.splice(index, 1);
-    console.log(index);
-    console.log(updatedList);
+    copyOfList.splice(index, 1);
     this.setState({
-      listOfItems: updatedList
+      listOfItems: copyOfList
     });
   }
 
