@@ -80,13 +80,6 @@ class List extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    localStorage.setItem(
-      "toDoListItems",
-      JSON.stringify(this.state.listOfItems)
-    );
-  }
-
   sortListOfItems() {
     let sortedList = this.state.listOfItems.sort(item => {
       return item.isDone ? 1 : -1;
@@ -126,6 +119,13 @@ class List extends React.Component {
       listOfItems: doneItemsListed,
       hideDoneActive: false
     });
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem(
+      "toDoListItems",
+      JSON.stringify(this.state.listOfItems)
+    );
   }
 
   render() {
