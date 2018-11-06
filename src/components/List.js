@@ -2,7 +2,7 @@ import React from "react";
 
 function ListComponent(props) {
   return (
-    <div className="list-item">
+    <div className={props.showItem}>
       <button
         onClick={props.onClick}
         className={props.isDone ? "todo-done" : "todo-pending"}
@@ -35,11 +35,14 @@ class List extends React.Component {
     let storedListOfItems = JSON.parse(localStorage.getItem("toDoListItems"));
     if (storedListOfItems) {
       this.state = {
-        listOfItems: [...storedListOfItems]
+        listOfItems: [...storedListOfItems],
+        hideDoneActive: false
       };
     } else {
       this.state = {
-        listOfItems: [{ title: "Leg dein erstes ToDo an! :)", isDone: false }]
+        listOfItems: [
+          { title: "Leg dein erstes ToDo an! :)", isDone: false, show: true }
+        ]
       };
     }
 
@@ -48,6 +51,8 @@ class List extends React.Component {
     this.toggleIsDone = this.toggleIsDone.bind(this);
     this.deleteToDo = this.deleteToDo.bind(this);
     this.sortListOfItems = this.sortListOfItems.bind(this);
+    this.hideDoneItems = this.hideDoneItems.bind(this);
+    this.showDoneitems = this.showDoneitems.bind(this);
   }
 
   changeTitle(index, newTitle) {
@@ -68,15 +73,11 @@ class List extends React.Component {
 
   addItem() {
     this.setState({
-      listOfItems: [...this.state.listOfItems, { title: "", isDone: false }]
+      listOfItems: [
+        ...this.state.listOfItems,
+        { title: "", isDone: false, show: true }
+      ]
     });
-  }
-
-  componentDidUpdate() {
-    localStorage.setItem(
-      "toDoListItems",
-      JSON.stringify(this.state.listOfItems)
-    );
   }
 
   sortListOfItems() {
@@ -96,11 +97,50 @@ class List extends React.Component {
     });
   }
 
+  hideDoneItems() {
+    let doneItemsNotListed = this.state.listOfItems.map(item => {
+      item.isDone ? (item.show = false) : (item.show = true);
+      return item;
+    });
+
+    this.setState({
+      listOfItems: doneItemsNotListed,
+      hideDoneActive: true
+    });
+  }
+
+  showDoneitems() {
+    let doneItemsListed = this.state.listOfItems.map(item => {
+      item.show = true;
+      return item;
+    });
+
+    this.setState({
+      listOfItems: doneItemsListed,
+      hideDoneActive: false
+    });
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem(
+      "toDoListItems",
+      JSON.stringify(this.state.listOfItems)
+    );
+  }
+
   render() {
     return (
       <div>
         <button onClick={this.sortListOfItems} className="standard-button">
           Sort List
+        </button>
+        <button
+          onClick={
+            this.state.hideDoneActive ? this.showDoneitems : this.hideDoneItems
+          }
+          className="standard-button"
+        >
+          {this.state.hideDoneActive ? "Show Done" : "hide Done"}
         </button>
 
         {this.state.listOfItems.map((item, i) => (
@@ -112,6 +152,7 @@ class List extends React.Component {
             onClick={() => this.toggleIsDone(i)}
             changeTitle={this.changeTitle}
             deleteToDo={this.deleteToDo}
+            showItem={item.show ? "list-item" : "hide"}
           />
         ))}
 
