@@ -47,6 +47,7 @@ class List extends React.Component {
     this.changeTitle = this.changeTitle.bind(this);
     this.toggleIsDone = this.toggleIsDone.bind(this);
     this.deleteToDo = this.deleteToDo.bind(this);
+    this.sortListOfItems = this.sortListOfItems.bind(this);
   }
 
   changeTitle(index, newTitle) {
@@ -63,7 +64,6 @@ class List extends React.Component {
     this.setState({
       listOfItems: prevListOfItems
     });
-    this.sortListOfItems();
   }
 
   addItem() {
@@ -99,6 +99,10 @@ class List extends React.Component {
   render() {
     return (
       <div>
+        <button onClick={this.sortListOfItems} className="add-button">
+          Sort List
+        </button>
+
         {this.state.listOfItems.map((item, i) => (
           <ListComponent
             title={item.title}
