@@ -5,7 +5,7 @@ function ListComponent(props) {
     <div className="list-item">
       <button
         onClick={props.onClick}
-        className={props.isDone ? "green" : "red"}
+        className={props.isDone ? "todo-done" : "todo-pending"}
       >
         {props.isDone ? "✔" : "X"}
       </button>
@@ -100,7 +100,7 @@ class List extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.sortListOfItems} className="add-button">
+        <button onClick={this.sortListOfItems} className="standard-button">
           Sort List
         </button>
         <button onClick="" className="add-button">
@@ -119,7 +119,7 @@ class List extends React.Component {
           />
         ))}
 
-        <button onClick={this.addItem} className="add-button">
+        <button onClick={this.addItem} className="standard-button">
           Add Item
         </button>
       </div>
