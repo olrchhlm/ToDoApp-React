@@ -35,7 +35,8 @@ class List extends React.Component {
     let storedListOfItems = JSON.parse(localStorage.getItem("toDoListItems"));
     if (storedListOfItems) {
       this.state = {
-        listOfItems: [...storedListOfItems]
+        listOfItems: [...storedListOfItems],
+        hideDoneActive: false
       };
     } else {
       this.state = {
@@ -101,6 +102,9 @@ class List extends React.Component {
       <div>
         <button onClick={this.sortListOfItems} className="add-button">
           Sort List
+        </button>
+        <button onClick="" className="add-button">
+          Hide Done
         </button>
 
         {this.state.listOfItems.map((item, i) => (

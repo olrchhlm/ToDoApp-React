@@ -33,10 +33,9 @@
   border: none;
 }
 
-remove-button {
-  height: 20px;
-  width: 20px;
-  border: none;
+.remove-button {
+  border: 1px solid grey;
+  background: none;
 }
 
 .footer {
