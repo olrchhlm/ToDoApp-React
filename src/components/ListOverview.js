@@ -18,7 +18,15 @@ class ListOverview extends React.Component {
     if (storedListOfItems) {
       return [...storedListOfItems];
     } else {
-      return [{ title: "Erste ToDo-Liste", isDone: false, show: true }];
+      let timeStamp = Date.now();
+      return [
+        {
+          title: "Erste ToDo-Liste",
+          color: "red",
+          show: true,
+          storageID: timeStamp
+        }
+      ];
     }
   }
 
@@ -43,11 +51,7 @@ class ListOverview extends React.Component {
   showList(indexToShow) {
     let updatedView = [...this.state.toDoLists];
     updatedView.map((list, i) => {
-      if (indexToShow === i) {
-        list.show = true;
-      } else {
-        list.show = false;
-      }
+      indexToShow === i ? (list.show = true) : (list.show = false);
     });
     this.setState({
       toDoLists: updatedView
@@ -66,14 +70,16 @@ class ListOverview extends React.Component {
           <form className="list-overview">
             {this.state.toDoLists.map((list, i) => {
               return (
-                <input
-                  type="text"
-                  onClick={() => this.showList(i)}
-                  value={list.title}
-                  key={i}
-                  index={i}
-                  onChange={event => this.handleInput(i, event.target.value)}
-                />
+                <div className="list-item">
+                  <input
+                    type="text"
+                    onClick={() => this.showList(i)}
+                    value={list.title}
+                    key={i}
+                    index={i}
+                    onChange={event => this.handleInput(i, event.target.value)}
+                  />
+                </div>
               );
             })}
           </form>
@@ -81,7 +87,7 @@ class ListOverview extends React.Component {
             Add List
           </button>
         </div>
-        <div>
+        <div className="spacing-right">
           {this.state.toDoLists.map((list, i) => {
             if (list.show) {
               return (

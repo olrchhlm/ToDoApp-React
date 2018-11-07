@@ -117,7 +117,7 @@ class List extends React.Component {
           }
           className="standard-button"
         >
-          {this.state.hideDoneActive ? "Show Done" : "hide Done"}
+          {this.state.hideDoneActive ? "Show Done" : "Hide Done"}
         </button>
 
         {this.state.listOfItems.map((item, i) => (

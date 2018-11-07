@@ -6,9 +6,7 @@ function ListComponent(props) {
       <button
         onClick={props.onClick}
         className={props.isDone ? "todo-done" : "todo-pending"}
-      >
-        {props.isDone ? "✔" : "X"}
-      </button>
+      />
       <form>
         <input
           type="text"
@@ -21,7 +19,7 @@ function ListComponent(props) {
         className="remove-button"
         onClick={() => props.deleteToDo(props.index)}
       >
-        DEL
+        X
       </button>
     </div>
   );
