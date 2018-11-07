@@ -5,25 +5,21 @@ class ListOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //timestamp als ID hinzufügen, damit alles im speicher wiedergefunden werden kann
-      toDoLists: [
-        {
-          title: "Einkaufsliste",
-          color: "blue",
-          show: true,
-          storageID: Date.now()
-        },
-        {
-          title: "Packliste",
-          color: "red",
-          show: true,
-          storageID: 1541522142967
-        }
-      ]
+      toDoLists: this.createListOfItems()
     };
 
     this.addToDoList = this.addToDoList.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.createListOfItems = this.createListOfItems.bind(this);
+  }
+
+  createListOfItems() {
+    let storedListOfItems = JSON.parse(localStorage.getItem("ToDoLists"));
+    if (storedListOfItems) {
+      return [...storedListOfItems];
+    } else {
+      return [{ title: "Erste ToDo-Liste", isDone: false, show: true }];
+    }
   }
 
   addToDoList() {
@@ -56,6 +52,10 @@ class ListOverview extends React.Component {
     this.setState({
       toDoLists: updatedView
     });
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem("ToDoLists", JSON.stringify(this.state.toDoLists));
   }
 
   render() {
