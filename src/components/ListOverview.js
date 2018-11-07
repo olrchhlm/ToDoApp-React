@@ -67,22 +67,27 @@ class ListOverview extends React.Component {
       <div className="layout">
         <div className="spacing-right">
           <h1> Listenübersicht </h1>
-          <form className="list-overview">
+          <div>
             {this.state.toDoLists.map((list, i) => {
               return (
                 <div className="list-item">
-                  <input
-                    type="text"
-                    onClick={() => this.showList(i)}
-                    value={list.title}
-                    key={i}
-                    index={i}
-                    onChange={event => this.handleInput(i, event.target.value)}
-                  />
+                  <form className="list-overview">
+                    <input
+                      type="text"
+                      onClick={() => this.showList(i)}
+                      value={list.title}
+                      key={i}
+                      index={i}
+                      onChange={event =>
+                        this.handleInput(i, event.target.value)
+                      }
+                    />
+                  </form>
                 </div>
               );
             })}
-          </form>
+          </div>
+
           <button className="standard-button" onClick={this.addToDoList}>
             Add List
           </button>
