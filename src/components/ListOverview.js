@@ -23,6 +23,7 @@ class ListOverview extends React.Component {
     };
 
     this.addToDoList = this.addToDoList.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   addToDoList() {
@@ -35,22 +36,43 @@ class ListOverview extends React.Component {
     });
   }
 
+  handleInput(index, input) {
+    let newValue = [...this.state.toDoLists];
+    newValue[index].title = input;
+    this.setState({
+      toDoLists: newValue
+    });
+  }
+
   render() {
     return (
       <div className="layout">
         <div>
           <h1> Listenübersicht</h1>
-          <ul>
-            {this.state.toDoLists.map(list => {
-              return <li> {list.title} </li>;
+          <form className="list-overview">
+            {this.state.toDoLists.map((list, i) => {
+              return (
+                <input
+                  type="text"
+                  // onClick={() =>
+                  //   console.log("hier muss die Listenauswahl geschehen")
+                  // }
+                  value={list.title}
+                  key={i}
+                  index={i}
+                  onChange={event => this.handleInput(i, event.target.value)}
+                />
+              );
             })}
-          </ul>
+          </form>
+          <button className="standard-button" onClick={this.addToDoList}>
+            Add List
+          </button>
         </div>
         <div>
-          {this.state.toDoLists.map(list => {
-            console.log(this.state.toDoLists);
+          {this.state.toDoLists.map((list, i) => {
             if (list.clicked) {
-              return <List title={list.title} />;
+              return <List title={list.title} key={i} index={i} />;
             }
           })}
         </div>

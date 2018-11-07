@@ -53,3 +53,8 @@
 .layout {
   display: flex;
 }
+
+.list-overview {
+  display: flex;
+  flex-direction: column;
+}
