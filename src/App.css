@@ -20,6 +20,14 @@ input {
   height: 100%;
 }
 
+input:focus {
+  outline: 0;
+}
+
+form:focus {
+  outline: 0;
+}
+
 .header {
   margin-bottom: 30px;
   text-align: center;
@@ -44,21 +52,23 @@ input {
 }
 
 .todo-done {
-  background: rgb(61, 172, 70);
+  background: rgb(255, 72, 0);
   border-radius: 10px;
   height: 15px;
   width: 15px;
   border: none;
   margin-left: 5px;
+  transition: all 1s;
 }
 
 .todo-pending {
-  background: rgb(190, 23, 23);
   border-radius: 10px;
+  background: none;
   height: 15px;
   width: 15px;
-  border: none;
+  border: 1px solid rgb(255, 72, 0);
   margin-left: 5px;
+  transition: all 1s;
 }
 
 .remove-button {

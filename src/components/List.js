@@ -21,7 +21,6 @@ class List extends React.Component {
 
   createListOfItems(storageID) {
     let storedListOfItems = JSON.parse(localStorage.getItem(storageID));
-    console.log(storageID);
     if (storedListOfItems) {
       return [...storedListOfItems];
     } else {

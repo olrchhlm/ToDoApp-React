@@ -11,6 +11,7 @@ class ListOverview extends React.Component {
     this.addToDoList = this.addToDoList.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.createListOfItems = this.createListOfItems.bind(this);
+    this.deleteToDo = this.deleteToDo.bind(this);
   }
 
   createListOfItems() {
@@ -62,6 +63,14 @@ class ListOverview extends React.Component {
     localStorage.setItem("ToDoLists", JSON.stringify(this.state.toDoLists));
   }
 
+  deleteToDo(index) {
+    let copyOfList = [...this.state.toDoLists];
+    copyOfList.splice(index, 1);
+    this.setState({
+      toDoLists: copyOfList
+    });
+  }
+
   render() {
     return (
       <div className="layout">
@@ -83,6 +92,12 @@ class ListOverview extends React.Component {
                       }
                     />
                   </form>
+                  <button
+                    className="remove-button"
+                    onClick={() => this.deleteToDo(i)}
+                  >
+                    X
+                  </button>
                 </div>
               );
             })}
