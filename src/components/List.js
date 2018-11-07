@@ -5,7 +5,7 @@ class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      listOfItems: this.createListOfItems(),
+      listOfItems: this.createListOfItems(props.storageID),
       hideDoneActive: false
     };
 
@@ -19,8 +19,9 @@ class List extends React.Component {
     this.showDoneitems = this.showDoneitems.bind(this);
   }
 
-  createListOfItems() {
-    let storedListOfItems = JSON.parse(localStorage.getItem("toDoListItems"));
+  createListOfItems(storageID) {
+    let storedListOfItems = JSON.parse(localStorage.getItem(storageID));
+    console.log(storageID);
     if (storedListOfItems) {
       return [...storedListOfItems];
     } else {
@@ -98,7 +99,7 @@ class List extends React.Component {
 
   componentDidUpdate() {
     localStorage.setItem(
-      "toDoListItems",
+      this.props.storageID,
       JSON.stringify(this.state.listOfItems)
     );
   }

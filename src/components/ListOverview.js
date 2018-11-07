@@ -10,14 +10,14 @@ class ListOverview extends React.Component {
         {
           title: "Einkaufsliste",
           color: "blue",
-          clicked: true,
-          id: Date.now()
+          show: true,
+          storageID: Date.now()
         },
         {
           title: "Packliste",
           color: "red",
-          clicked: true,
-          id: 1541522142967
+          show: true,
+          storageID: 1541522142967
         }
       ]
     };
@@ -31,7 +31,7 @@ class ListOverview extends React.Component {
     this.setState({
       toDoLists: [
         ...this.state.toDoLists,
-        { title: "", color: "red", clicked: false, id: timeStamp }
+        { title: "", color: "red", show: false, storageID: timeStamp }
       ]
     });
   }
@@ -44,19 +44,31 @@ class ListOverview extends React.Component {
     });
   }
 
+  showList(indexToShow) {
+    let updatedView = [...this.state.toDoLists];
+    updatedView.map((list, i) => {
+      if (indexToShow === i) {
+        list.show = true;
+      } else {
+        list.show = false;
+      }
+    });
+    this.setState({
+      toDoLists: updatedView
+    });
+  }
+
   render() {
     return (
       <div className="layout">
-        <div>
-          <h1> Listenübersicht</h1>
+        <div className="spacing-right">
+          <h1> Listenübersicht </h1>
           <form className="list-overview">
             {this.state.toDoLists.map((list, i) => {
               return (
                 <input
                   type="text"
-                  // onClick={() =>
-                  //   console.log("hier muss die Listenauswahl geschehen")
-                  // }
+                  onClick={() => this.showList(i)}
                   value={list.title}
                   key={i}
                   index={i}
@@ -71,8 +83,15 @@ class ListOverview extends React.Component {
         </div>
         <div>
           {this.state.toDoLists.map((list, i) => {
-            if (list.clicked) {
-              return <List title={list.title} key={i} index={i} />;
+            if (list.show) {
+              return (
+                <List
+                  title={list.title}
+                  key={i}
+                  index={i}
+                  storageID={list.storageID}
+                />
+              );
             }
           })}
         </div>
