@@ -2,7 +2,7 @@ import React from "react";
 
 class Header extends React.Component {
   render() {
-    return <div className="header">ToDos für heute</div>;
+    return <div className="header" />;
   }
 }
 
