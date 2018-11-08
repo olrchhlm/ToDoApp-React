@@ -5,13 +5,21 @@ function ListEntry(props) {
     <div className={props.showItem}>
       <button
         onClick={props.onClick}
-        className={props.isDone ? "todo-done" : "todo-pending"}
+        className={
+          if(props.showCheckButton) {
+            if({props.isDone}) {
+              return "todo-done";
+            }else {
+              return "todo-pending";
+            }
+          }
+
+          }
       />
       <form>
         <input
           type="text"
           value={props.title}
-          placeholder={props.title}
           onChange={event => props.changeTitle(props.index, event.target.value)}
         />
       </form>

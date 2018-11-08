@@ -129,6 +129,7 @@ class ToDoList extends React.Component {
             changeTitle={this.changeTitle}
             deleteToDo={this.deleteToDo}
             showItem={item.show ? "list-item" : "hide"}
+            showCheckButton={false}
           />
         ))}
 
