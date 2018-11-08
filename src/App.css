@@ -1,9 +1,16 @@
+:root {
+  --contrast-color: rgb(255, 72, 0);
+  --background-color: rgb(53, 53, 53);
+  --light-gray: rgb(245, 245, 245);
+  --darker-gray: rgb(148, 148, 148);
+}
+
 h1 {
   font-weight: 100;
 }
 
 body {
-  background: rgb(53, 53, 53);
+  background: var(--background-color);
 }
 
 form {
@@ -13,7 +20,7 @@ form {
 
 input {
   border: none;
-  background: rgb(245, 245, 245);
+  background: var(--light-gray);
   padding: 0;
   margin-left: 5px;
   width: 100%;
@@ -24,7 +31,7 @@ input:focus {
   outline: 0;
 }
 
-form:focus {
+button:focus {
   outline: 0;
 }
 
@@ -37,7 +44,7 @@ form:focus {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-  background: rgb(245, 245, 245);
+  background: var(--light-gray);
   border-radius: 5px;
   height: 25px;
 }
@@ -45,14 +52,15 @@ form:focus {
 .standard-button {
   width: 80px;
   height: 30px;
-  border: 1px solid rgb(194, 194, 194);
+  border: 1px solid var(--light-gray);
   padding: 5px;
   background: white;
   margin: 0 5px 5px 0;
+  border-radius: 2px;
 }
 
 .todo-done {
-  background: rgb(255, 72, 0);
+  background: var(--contrast-color);
   border-radius: 10px;
   height: 15px;
   width: 15px;
@@ -66,7 +74,7 @@ form:focus {
   background: none;
   height: 15px;
   width: 15px;
-  border: 1px solid rgb(255, 72, 0);
+  border: 1px solid var(--contrast-color);
   margin-left: 5px;
   transition: all 1s;
 }
@@ -74,7 +82,7 @@ form:focus {
 .remove-button {
   border: none;
   background: none;
-  color: rgb(148, 148, 148);
+  color: var(--darker-gray);
 }
 
 .footer {
@@ -108,7 +116,7 @@ form:focus {
 
 @media screen and (max-width: 500px) {
   h1 {
-    color: rgb(255, 72, 0);
+    color: var(--contrast-color);
   }
 
   .layout {
@@ -118,6 +126,6 @@ form:focus {
 
 @media screen and (min-width: 500px) {
   h1 {
-    color: rgb(255, 72, 0);
+    color: var(--contrast-color);
   }
 }
