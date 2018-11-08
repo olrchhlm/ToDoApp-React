@@ -1,7 +1,7 @@
 import React from "react";
-import ListComponent from "./ListComponent";
+import ListEntry from "./ListEntry";
 
-class List extends React.Component {
+class ToDoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -120,7 +120,7 @@ class List extends React.Component {
         </button>
 
         {this.state.listOfItems.map((item, i) => (
-          <ListComponent
+          <ListEntry
             title={item.title}
             isDone={item.isDone}
             key={i}
@@ -140,4 +140,4 @@ class List extends React.Component {
   }
 }
 
-export default List;
+export default ToDoList;

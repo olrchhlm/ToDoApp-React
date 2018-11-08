@@ -1,6 +1,6 @@
 import React from "react";
 
-function ListComponent(props) {
+function ListEntry(props) {
   return (
     <div className={props.showItem}>
       <button
@@ -25,4 +25,4 @@ function ListComponent(props) {
   );
 }
 
-export default ListComponent;
+export default ListEntry;
