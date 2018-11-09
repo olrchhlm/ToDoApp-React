@@ -5,8 +5,7 @@ class ToDoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      listOfItems: this.createListOfItems(props.storageID),
-      hideDoneActive: false
+      listOfItems: this.createListOfItems(props.storageID)
     };
 
     this.createListOfItems = this.createListOfItems.bind(this);
@@ -17,6 +16,8 @@ class ToDoList extends React.Component {
     this.sortListOfItems = this.sortListOfItems.bind(this);
     this.hideDoneItems = this.hideDoneItems.bind(this);
     this.showDoneitems = this.showDoneitems.bind(this);
+    this.doneItemExists = this.doneItemExists.bind(this);
+    this.allowSort = this.allowSort.bind(this);
   }
 
   createListOfItems(storageID) {
@@ -79,8 +80,7 @@ class ToDoList extends React.Component {
     });
 
     this.setState({
-      listOfItems: doneItemsNotListed,
-      hideDoneActive: true
+      listOfItems: doneItemsNotListed
     });
   }
 
@@ -91,8 +91,7 @@ class ToDoList extends React.Component {
     });
 
     this.setState({
-      listOfItems: doneItemsListed,
-      hideDoneActive: false
+      listOfItems: doneItemsListed
     });
   }
 
@@ -103,20 +102,57 @@ class ToDoList extends React.Component {
     );
   }
 
+  //hiddenItemExists
+  doneItemExists() {
+    let hiddenItemExists = this.state.listOfItems.find(todo => {
+      return !todo.show;
+    });
+    let doneButShownItemExists = this.state.listOfItems.find(todo => {
+      return todo.isDone && todo.show;
+    });
+
+    if (hiddenItemExists && doneButShownItemExists) {
+      return false;
+    } else if (hiddenItemExists) {
+      return true;
+    }
+    return false;
+  }
+
+  allowSort() {
+    let doneAndShownItemExists = this.state.listOfItems.find(todo => {
+      return todo.isDone && todo.show;
+    });
+
+    return doneAndShownItemExists ? true : false;
+  }
+
+  allowHide() {
+    let doneItemExists = this.state.listOfItems.find(todo => {
+      return todo.isDone;
+    });
+
+    return doneItemExists ? true : false;
+  }
+
   render() {
     return (
       <div>
         <h1> {this.props.title} </h1>
-        <button onClick={this.sortListOfItems} className="standard-button">
+        <button
+          onClick={this.allowSort() ? this.sortListOfItems : null}
+          className={this.allowSort() ? "standard-button" : "hide"}
+        >
           Sort List
         </button>
+
         <button
           onClick={
-            this.state.hideDoneActive ? this.showDoneitems : this.hideDoneItems
+            this.doneItemExists() ? this.showDoneitems : this.hideDoneItems
           }
-          className="standard-button"
+          className={this.allowHide() ? "standard-button" : "hide"}
         >
-          {this.state.hideDoneActive ? "Show Done" : "Hide Done"}
+          {this.doneItemExists() ? "Show Done" : "Hide Done"}
         </button>
 
         {this.state.listOfItems.map((item, i) => (
@@ -125,11 +161,12 @@ class ToDoList extends React.Component {
             isDone={item.isDone}
             key={i}
             index={i}
-            onClick={() => this.toggleIsDone(i)}
+            onClickCheckButton={() => this.toggleIsDone(i)}
             changeTitle={this.changeTitle}
             deleteToDo={this.deleteToDo}
             showItem={item.show ? "list-item" : "hide"}
-            showCheckButton={false}
+            showCheckButton={true}
+            chooseToDoList={false}
           />
         ))}
 

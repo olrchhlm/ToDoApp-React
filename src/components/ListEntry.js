@@ -1,36 +1,46 @@
 import React from "react";
 
-function ListEntry(props) {
-  return (
-    <div className={props.showItem}>
-      <button
-        onClick={props.onClick}
-        className={
-          if(props.showCheckButton) {
-            if({props.isDone}) {
-              return "todo-done";
-            }else {
-              return "todo-pending";
-            }
-          }
+class ListEntry extends React.Component {
+  getCheckButtonClass() {
+    if (!this.props.showCheckButton) {
+      return "hide";
+    }
 
-          }
-      />
-      <form>
-        <input
-          type="text"
-          value={props.title}
-          onChange={event => props.changeTitle(props.index, event.target.value)}
+    return this.props.isDone ? "todo-done" : "todo-pending";
+  }
+
+  getOnClickActionForm() {
+    if (this.props.chooseToDoList) {
+      return () => this.props.chooseToDoList(this.props.index);
+    }
+  }
+
+  render() {
+    return (
+      <div className={this.props.showItem}>
+        <button
+          onClick={this.props.onClickCheckButton}
+          className={this.getCheckButtonClass(this.props)}
         />
-      </form>
-      <button
-        className="remove-button"
-        onClick={() => props.deleteToDo(props.index)}
-      >
-        X
-      </button>
-    </div>
-  );
+        <form>
+          <input
+            onClick={this.getOnClickActionForm()}
+            type="text"
+            value={this.props.title}
+            onChange={event =>
+              this.props.changeTitle(this.props.index, event.target.value)
+            }
+          />
+        </form>
+        <button
+          className="remove-button"
+          onClick={() => this.props.deleteToDo(this.props.index)}
+        >
+          X
+        </button>
+      </div>
+    );
+  }
 }
 
 export default ListEntry;

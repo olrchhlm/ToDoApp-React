@@ -50,7 +50,7 @@ button:focus {
 }
 
 .standard-button {
-  width: 80px;
+  width: 90px;
   height: 30px;
   border: 1px solid var(--light-gray);
   padding: 5px;
@@ -86,12 +86,6 @@ button:focus {
 }
 
 .footer {
-  background: white;
-  height: 250px;
-}
-
-.hide {
-  display: none;
 }
 
 .layout {
@@ -99,6 +93,7 @@ button:focus {
   border-top-right-radius: 15px;
   display: flex;
   background: white;
+  padding-bottom: 250px;
 }
 
 .list-overview {
@@ -110,6 +105,15 @@ button:focus {
   margin: 0 20px;
   margin-right: 20px;
   margin-left: 20px;
+}
+
+.invisible {
+  visibility: hidden;
+  width: 106px;
+}
+
+.hide {
+  display: none;
 }
 
 /*=============*/
@@ -127,5 +131,11 @@ button:focus {
 @media screen and (min-width: 500px) {
   h1 {
     color: var(--contrast-color);
+  }
+
+  .test {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 }
