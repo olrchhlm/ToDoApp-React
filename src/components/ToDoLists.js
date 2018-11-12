@@ -101,17 +101,17 @@ class ToDoLists extends React.Component {
           </div>
           <div className="spacing-right">
             {this.state.toDoLists.map((list, i) => {
-              if (list.show) {
-                return (
-                  <ToDoList
-                    title={list.title}
-                    key={i}
-                    index={i}
-                    storageID={list.storageID}
-                  />
-                );
+              if (!list.show) {
+                return null;
               }
-              return null;
+              return (
+                <ToDoList
+                  title={list.title}
+                  key={i}
+                  index={i}
+                  storageID={list.storageID}
+                />
+              );
             })}
           </div>
         </div>

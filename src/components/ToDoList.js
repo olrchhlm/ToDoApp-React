@@ -102,36 +102,34 @@ class ToDoList extends React.Component {
     );
   }
 
-  hiddenItemExists() {
-    let hiddenItemExists = this.state.listOfItems.find(todo => {
+  getHiddenItems() {
+    return this.state.listOfItems.find(todo => {
       return !todo.show;
     });
-    let doneButShownItemExists = this.state.listOfItems.find(todo => {
+  }
+
+  getDoneItems() {
+    return this.state.listOfItems.find(todo => {
+      return todo.isDone;
+    });
+  }
+
+  getDoneButShownItems() {
+    return this.state.listOfItems.find(todo => {
       return todo.isDone && todo.show;
     });
+  }
 
-    if (hiddenItemExists && doneButShownItemExists) {
-      return false;
-    } else if (hiddenItemExists) {
-      return true;
-    }
-    return false;
+  hiddenItemExists() {
+    return this.getHiddenItems() && !this.getDoneButShownItems();
   }
 
   allowSort() {
-    let doneAndShownItemExists = this.state.listOfItems.find(todo => {
-      return todo.isDone && todo.show;
-    });
-
-    return doneAndShownItemExists ? true : false;
+    return this.getDoneButShownItems();
   }
 
   allowHide() {
-    let doneItemExists = this.state.listOfItems.find(todo => {
-      return todo.isDone;
-    });
-
-    return doneItemExists ? true : false;
+    return this.getDoneItems();
   }
 
   render() {
