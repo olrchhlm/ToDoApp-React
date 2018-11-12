@@ -16,7 +16,7 @@ class ToDoList extends React.Component {
     this.sortListOfItems = this.sortListOfItems.bind(this);
     this.hideDoneItems = this.hideDoneItems.bind(this);
     this.showDoneitems = this.showDoneitems.bind(this);
-    this.doneItemExists = this.doneItemExists.bind(this);
+    this.hiddenItemExists = this.hiddenItemExists.bind(this);
     this.allowSort = this.allowSort.bind(this);
   }
 
@@ -102,8 +102,7 @@ class ToDoList extends React.Component {
     );
   }
 
-  //hiddenItemExists
-  doneItemExists() {
+  hiddenItemExists() {
     let hiddenItemExists = this.state.listOfItems.find(todo => {
       return !todo.show;
     });
@@ -148,11 +147,11 @@ class ToDoList extends React.Component {
 
         <button
           onClick={
-            this.doneItemExists() ? this.showDoneitems : this.hideDoneItems
+            this.hiddenItemExists() ? this.showDoneitems : this.hideDoneItems
           }
           className={this.allowHide() ? "standard-button" : "hide"}
         >
-          {this.doneItemExists() ? "Show Done" : "Hide Done"}
+          {this.hiddenItemExists() ? "Show Done" : "Hide Done"}
         </button>
 
         {this.state.listOfItems.map((item, i) => (
