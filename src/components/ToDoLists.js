@@ -1,7 +1,8 @@
 import React from "react";
-import List from "./List";
+import ToDoList from "./ToDoList";
+import ListEntry from "./ListEntry";
 
-class ListOverview extends React.Component {
+class ToDoLists extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,7 +10,7 @@ class ListOverview extends React.Component {
     };
 
     this.addToDoList = this.addToDoList.bind(this);
-    this.handleInput = this.handleInput.bind(this);
+    this.changeTitle = this.changeTitle.bind(this);
     this.createListOfItems = this.createListOfItems.bind(this);
     this.deleteToDo = this.deleteToDo.bind(this);
   }
@@ -41,7 +42,7 @@ class ListOverview extends React.Component {
     });
   }
 
-  handleInput(index, input) {
+  changeTitle(index, input) {
     let newValue = [...this.state.toDoLists];
     newValue[index].title = input;
     this.setState({
@@ -52,7 +53,7 @@ class ListOverview extends React.Component {
   showList(indexToShow) {
     let updatedView = [...this.state.toDoLists];
     updatedView.map((list, i) => {
-      indexToShow === i ? (list.show = true) : (list.show = false);
+      return indexToShow === i ? (list.show = true) : (list.show = false);
     });
     this.setState({
       toDoLists: updatedView
@@ -73,57 +74,50 @@ class ListOverview extends React.Component {
 
   render() {
     return (
-      <div className="layout">
-        <div className="spacing-right">
-          <h1> Listenübersicht </h1>
-          <div>
+      <div className="test">
+        <div className="layout">
+          <div className="spacing-right">
+            <h1> Listenübersicht </h1>
+            <div>
+              {this.state.toDoLists.map((list, i) => {
+                return (
+                  <ListEntry
+                    showItem={"list-item"}
+                    title={list.title}
+                    key={i}
+                    index={i}
+                    deleteToDo={this.deleteToDo}
+                    showCheckButton={false}
+                    changeTitle={this.changeTitle}
+                    chooseToDoList={() => this.showList(i)}
+                  />
+                );
+              })}
+            </div>
+
+            <button className="standard-button" onClick={this.addToDoList}>
+              Add List
+            </button>
+          </div>
+          <div className="spacing-right">
             {this.state.toDoLists.map((list, i) => {
-              return (
-                <div className="list-item">
-                  <form className="list-overview">
-                    <input
-                      type="text"
-                      onClick={() => this.showList(i)}
-                      value={list.title}
-                      key={i}
-                      index={i}
-                      onChange={event =>
-                        this.handleInput(i, event.target.value)
-                      }
-                    />
-                  </form>
-                  <button
-                    className="remove-button"
-                    onClick={() => this.deleteToDo(i)}
-                  >
-                    X
-                  </button>
-                </div>
-              );
+              if (list.show) {
+                return (
+                  <ToDoList
+                    title={list.title}
+                    key={i}
+                    index={i}
+                    storageID={list.storageID}
+                  />
+                );
+              }
+              return null;
             })}
           </div>
-
-          <button className="standard-button" onClick={this.addToDoList}>
-            Add List
-          </button>
-        </div>
-        <div className="spacing-right">
-          {this.state.toDoLists.map((list, i) => {
-            if (list.show) {
-              return (
-                <List
-                  title={list.title}
-                  key={i}
-                  index={i}
-                  storageID={list.storageID}
-                />
-              );
-            }
-          })}
         </div>
       </div>
     );
   }
 }
 
-export default ListOverview;
+export default ToDoLists;
